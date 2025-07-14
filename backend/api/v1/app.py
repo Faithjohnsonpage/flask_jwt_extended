@@ -30,6 +30,15 @@ app.config["JWT_IDENTITY_CLAIM"] = "user_id"
 # Initialize JWT Manager
 jwt = JWTManager(app)
 
+# Celery configuration (Redis DB 3)
+app.config["CELERY_BROKER_URL"] = os.getenv("REDIS_URL", "redis://localhost:6379/3")
+app.config["result_backend"] = os.getenv("REDIS_URL", "redis://localhost:6379/3")
+
+from extensions.celery_utils import make_celery
+
+celery = make_celery(app)
+app.celery = celery
+
 # Configure cache (Using Redis as a caching backend)
 app.config["CACHE_TYPE"] = "RedisCache"
 app.config["CACHE_REDIS_HOST"] = "localhost"
