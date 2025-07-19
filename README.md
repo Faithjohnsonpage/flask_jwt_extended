@@ -60,20 +60,20 @@ Before running the app or applying migrations, you need to set your database con
 #### Example for MySQL:
 
 ```bash
-export DATABASE_URL=mysql+mysqldb://username:password@localhost/sentinel_osint
+export DATABASE_URL=mysql+mysqldb://username:password@localhost/db
 ```
 
 #### Example for SQLite (for testing):
 
 ```bash
-export DATABASE_URL=sqlite:///sentinel.db
+export DATABASE_URL=sqlite:///db
 ```
 
 > This tells both the Flask app and Alembic where to connect for database operations.
 
 #### 📌 Notes:
 
-* Replace `username`, `password`, `localhost`, and `sentinel_osint` with your actual DB config.
+* Replace `username`, `password`, `localhost`, and `db` with your actual DB config.
 * You can add this line to your `.bashrc` or `.zshrc` for persistence.
 * If you're using a `.env` file, make sure to load it with `python-dotenv` or something similar.
 
