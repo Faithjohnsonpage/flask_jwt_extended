@@ -53,6 +53,69 @@ export API_PORT=5000
 
 ---
 
+### 🛠️ Setting the `DATABASE_URL`
+
+Before running the app or applying migrations, you need to set your database connection string as an environment variable called `DATABASE_URL`.
+
+#### Example for MySQL:
+
+```bash
+export DATABASE_URL=mysql+mysqldb://username:password@localhost/sentinel_osint
+```
+
+#### Example for SQLite (for testing):
+
+```bash
+export DATABASE_URL=sqlite:///sentinel.db
+```
+
+> This tells both the Flask app and Alembic where to connect for database operations.
+
+#### 📌 Notes:
+
+* Replace `username`, `password`, `localhost`, and `sentinel_osint` with your actual DB config.
+* You can add this line to your `.bashrc` or `.zshrc` for persistence.
+* If you're using a `.env` file, make sure to load it with `python-dotenv` or something similar.
+
+---
+
+## 🗃️ Database Migrations with Alembic
+
+Once you’ve set up and configured Alembic (as you’ve already done), use these commands to manage migrations:
+
+### 1. Create a Migration Revision
+
+```bash
+alembic revision --autogenerate -m "create user and scan tables"
+```
+
+> This compares your models to the current database and generates a new migration script.
+
+### 2. Apply Migrations to the Database
+
+```bash
+alembic upgrade head
+```
+
+> This applies all pending migrations.
+
+### 3. Roll Back (Optional)
+
+```bash
+alembic downgrade -1
+```
+
+> Reverts the most recent migration.
+
+---
+
+### 🔧 Notes
+
+* Make sure your `alembic.ini` and `env.py` are properly set to use the same DB URI as your Flask app.
+* You should **commit your migration scripts** (under `migrations/versions/`) into source control.
+
+---
+
 ## 🧪 API Endpoints & CURL Examples
 
 ### 🔐 Register a User
